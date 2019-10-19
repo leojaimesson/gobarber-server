@@ -6,7 +6,11 @@
   "scripts": {
     "dev": "nodemon ./src/server.js",
     "dev:debug": "nodemon --inspect ./src/server.js",
-    "eslint:fix": "eslint --fix src --ext .js"
+    "eslint:fix": "eslint --fix src --ext .js",
+    "migrate:create": "./scripts/migrations/create.sh",
+    "migrate:run": "sequelize db:migrate",
+    "migrate:rollback": "sequelize db:migrate:undo",
+    "migrate:rollback:all": "sequelize db:migrate:undo:all"
   },
   "dependencies": {
     "express": "^4.17.1",
@@ -22,6 +26,7 @@
     "eslint-plugin-prettier": "^3.1.1",
     "nodemon": "^1.19.4",
     "prettier": "^1.18.2",
+    "sequelize-cli": "^5.5.1",
     "sucrase": "^3.10.1"
   }
 }
