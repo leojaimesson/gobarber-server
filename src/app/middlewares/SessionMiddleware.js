@@ -1,18 +1,7 @@
 import HttpStatus from 'http-status-codes';
 import UserService from '../services/UserService';
 
-class UserMiddlewares {
-  async checkIfUserAlreadyExists(request, response, next) {
-    const { email } = request.body;
-    const user = await UserService.getUserByEmail(email || '');
-    if (user) {
-      return response
-        .status(HttpStatus.BAD_REQUEST)
-        .json({ message: 'User already exists.' });
-    }
-    return next();
-  }
-
+class SessionMiddleware {
   async checkAccount(request, response, next) {
     const { email, password } = request.body;
     const user = await UserService.getUserByEmail(email || '');
@@ -31,4 +20,4 @@ class UserMiddlewares {
   }
 }
 
-export default new UserMiddlewares();
+export default new SessionMiddleware();
