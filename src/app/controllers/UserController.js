@@ -1,6 +1,5 @@
 import HttpStatus from 'http-status-codes';
 import UserService from '../services/UserService';
-import BadRequestError from '../errors/BadRequestError';
 
 class UserController {
   async checkIfUserExists(request, response, next) {
@@ -9,7 +8,7 @@ class UserController {
     if (user) {
       return response
         .status(HttpStatus.BAD_REQUEST)
-        .json(new BadRequestError('User already exists.'));
+        .json({ message: 'User already exists.' });
     }
     return next();
   }
@@ -19,9 +18,10 @@ class UserController {
       const user = await UserService.store(request.body);
       return response.status(HttpStatus.OK).json(user);
     } catch (error) {
-      return response
-        .status(HttpStatus.BAD_REQUEST)
-        .json(new BadRequestError());
+      return response.status(HttpStatus.BAD_REQUEST).json({
+        message:
+          'Bad Request. Your application sent a request that this server could not understand.',
+      });
     }
   }
 }
